@@ -58,16 +58,16 @@ class NGramManager(models.Manager):
             context = tuple(ngram.context.split())
             self.ngram_model[(ngram.dataset_name, context)][ngram.word] = ngram.frequency
 
-    def suggest_word(self, text, dataset_name, n=5):
+    def suggest_word(self, text, dataset_name, k=5):
         self.load_n_gram_model()
         words = text.split()
         if len(words) < 1:
             return ""
-        context = tuple(words[-1:])
+        context = tuple(words[-(self.n - 1):])
         suggestions = self.ngram_model.get((dataset_name, context), {})
         if not suggestions:
             return ""
-        top_n_values = [t[0] for t in sorted(suggestions.items(), key=lambda item: item[1], reverse=True)[:n]]
+        top_n_values = [t[0] for t in sorted(suggestions.items(), key=lambda item: item[1], reverse=True)[:k]]
         return top_n_values
 
 

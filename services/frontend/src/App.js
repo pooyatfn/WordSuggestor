@@ -75,8 +75,8 @@ const AutocompleteInterface = () => {
     if (input.trim()) {
       const lastChar = input.slice(-1);
       if (lastChar === ' ') {
-        const lastWord = input.trim().split(' ').pop();
-        fetchSuggestions(lastWord);
+        const context = input.trim();
+        fetchSuggestions(context);
       } else {
         setSuggestions([]);
       }
