@@ -17,7 +17,7 @@ def read_phrases_from_csv(file_name):
 
 
 class NGramManager(models.Manager):
-    def __init__(self, n=2):
+    def __init__(self, n=3):
         super().__init__()
         self.n = n
         self.ngram_model = defaultdict(lambda: defaultdict(int))
